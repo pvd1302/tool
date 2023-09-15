@@ -54,14 +54,6 @@ def replace_link_css_or_image(link):
     return link
 
 
-# def replace_link_script(link):
-#     link = link.replace('assets', domain + '/assets').replace("././", "").replace("./", "")
-#     link = link.replace('vendor', domain + '/vendor').replace("././", "").replace("./", "")
-#     link = link.replace('locales', domain + '/locales').replace("././", "").replace("./", "")
-#     link = link.replace('utils', domain + '/utils').replace("././", "").replace("./", "")
-#     return link
-
-
 def convert_filename(filename):
     new_filename = copy.deepcopy(filename)
     if "?v=" in new_filename:
@@ -109,10 +101,7 @@ if __name__ == '__main__':
             if line:
                 repos.append(line)
     for url in repos:
-        # if not url.strip():
-        #     continue
         print(url)
-
         nameDelete = url.split('#api-')
         first = ''
         apiName = url.split('/#')
@@ -155,7 +144,6 @@ if __name__ == '__main__':
             count -= 1
         #
         print("Start download link css/image")
-        # start = time.time()
 
         for a in soup.find_all('link'):
             a_href = a['href']
@@ -168,9 +156,6 @@ if __name__ == '__main__':
 
                     a_href = downloadFile(a_href, convert_filename(file_new))
             a['href'] = a_href
-        # end = time.time()
-        # run_time = end - start
-        # print(a_href, convert_filename(file_new), run_time)
         print("Start convert to html")
         head = soup.find('head')
 
@@ -183,7 +168,6 @@ if __name__ == '__main__':
             f.write(result)
         #
         print("Start config export file pdf")
-        # path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
         try:
             pdfkit.from_file(outFilePathHtml, outFilePathPdf, options={"enable-local-file-access": ""},
                              configuration=config)
