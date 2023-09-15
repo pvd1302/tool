@@ -51,6 +51,7 @@ def replace_link_css_or_image(link):
     link = link.replace('img/', domain + '/img/')
     return link
 
+
 def convert_filename(filename):
     new_filename = copy.deepcopy(filename)
     if "?v=" in new_filename:
@@ -160,6 +161,9 @@ if __name__ == '__main__':
         #
         print("Start config export file pdf")
         try:
+            output_download = "List file PDF"
+            os.makedirs(output_download, exist_ok=True)
+            outFilePathPdf = os.path.join(output_download, outFilePathPdf)
             pdfkit.from_file(outFilePathHtml, outFilePathPdf, options={"enable-local-file-access": ""},
                              configuration=config)
         except:
