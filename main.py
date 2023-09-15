@@ -155,13 +155,13 @@ if __name__ == '__main__':
 
         outFilePathHtml = divIDApiName + ".html"
         outFilePathPdf = divIDApiName + ".pdf"
-        print("Start save file html")
+        print("Start save file html")  
         with open(outFilePathHtml, "w", encoding="UTF-8") as f:
             f.write(result)
         #
         print("Start config export file pdf")
         try:
-            output_download = "List file PDF"
+            output_download = "Output"
             os.makedirs(output_download, exist_ok=True)
             outFilePathPdf = os.path.join(output_download, outFilePathPdf)
             pdfkit.from_file(outFilePathHtml, outFilePathPdf, options={"enable-local-file-access": ""},
