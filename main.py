@@ -41,7 +41,6 @@ def downloadFile(link, file_name):
         resp_text = resp.text
         resp_text = resp_text.replace("border: 1px solid var(--main-gray);", "border: 1px solid #000;")
         f.write(resp_text)
-
     return r
 
 
@@ -50,9 +49,7 @@ def replace_link_css_or_image(link):
     link = link.replace('vendor', domain + '/vendor')
     link = link.replace('css/', domain + '/css/')
     link = link.replace('img/', domain + '/img/')
-
     return link
-
 
 def convert_filename(filename):
     new_filename = copy.deepcopy(filename)
@@ -70,7 +67,6 @@ if __name__ == '__main__':
                     '"': '%22',
                     '#': '%23',
                     '$': '%24',
-                    # '%': '%25',
                     '&': "%26",
                     "'": '%27',
                     '(': '%28',
@@ -140,7 +136,6 @@ if __name__ == '__main__':
             body = soup.find('div', {'id': divIDApiName})
             if body:
                 break
-
             count -= 1
         #
         print("Start download link css/image")
@@ -150,11 +145,7 @@ if __name__ == '__main__':
             a_href = replace_link_css_or_image(a_href)
             if a_href.startswith(domain):
                 file_new = a_href.replace(domain, "")
-                if os.path.isfile(a_href):
-                    print("File exist")
-                else:
-
-                    a_href = downloadFile(a_href, convert_filename(file_new))
+                a_href = downloadFile(a_href, convert_filename(file_new))
             a['href'] = a_href
         print("Start convert to html")
         head = soup.find('head')
@@ -174,4 +165,4 @@ if __name__ == '__main__':
         except:
             print("Export done")
         os.remove(outFilePathHtml)
-        shutil.rmtree("download")
+    shutil.rmtree("download")
